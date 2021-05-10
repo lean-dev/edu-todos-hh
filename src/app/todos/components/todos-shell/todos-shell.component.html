@@ -7,7 +7,9 @@
     <input id="toggle-all" class="toggle-all" type="checkbox">
     <label for="toggle-all">Mark all as complete</label>
     <ul class="todo-list">
-      <todos-item *ngFor="let t of todos" [todo]="t" ></todos-item>
+      <todos-item *ngFor="let t of todos" [todo]="t"
+        (remove)="removeTodo(t.id)"
+      ></todos-item>
     </ul>
   </section>
   <todos-actionbar [todos]="todos"></todos-actionbar>
