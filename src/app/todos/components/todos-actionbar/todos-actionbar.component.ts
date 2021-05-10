@@ -9,4 +9,14 @@ export class TodosActionbarComponent {
 
   @Input()
   todos!: Todo[];
+
+  // Bad practices: recalculating on every change detection run
+
+  get hasTodos(): boolean {
+    return this.todos.length > 0;
+  }
+
+  get activeCount(): number {
+    return this.todos.reduce((count, t) => t.completed ? count : count + 1, 0);
+  }
 }
