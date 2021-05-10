@@ -7,8 +7,14 @@ import { Todo } from '../../model/todo';
 })
 export class TodosShellComponent {
 
+  private nextId = 1;
+
   author = 'Micha Alt';
   authorUrl = 'https://github.com/lean-ng';
 
   todos: Todo[] = [];
+
+  createTodo(title: string) {
+    this.todos.push({ id: this.nextId++, title, completed: false });
+  }
 }
