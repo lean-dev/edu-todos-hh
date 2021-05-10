@@ -11,4 +11,8 @@ export class TodosItemComponent {
   @Input()
   todo!: Todo;
 
+  toggleCompletedState(): void {
+    // Problem: who calls the backend??
+    this.todo.completed = !this.todo.completed;
+  }
 }

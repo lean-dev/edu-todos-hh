@@ -1,7 +1,8 @@
 <!-- List items should get the class `editing` when editing  -->
 <li [ngClass]="{ completed: todo.completed }">
   <div class="view">
-    <input class="toggle" type="checkbox" [checked]="todo.completed" />
+    <input class="toggle" type="checkbox"
+      [checked]="todo.completed" (change)="toggleCompletedState()" />
     <label>{{ todo.title }}</label>
     <button class="destroy"></button>
   </div>
