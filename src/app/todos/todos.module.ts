@@ -8,6 +8,9 @@ import { TodosShellComponent } from './components/todos-shell/todos-shell.compon
   ],
   imports: [
     CommonModule
+  ],
+  exports: [
+    TodosShellComponent
   ]
 })
 export class TodosModule { }
