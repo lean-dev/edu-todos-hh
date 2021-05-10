@@ -1,7 +1,7 @@
 <section class="todoapp">
   <header class="header">
     <h1>todos</h1>
-    <input class="new-todo" placeholder="What needs to be done?" autofocus>
+    <todos-input></todos-input>
   </header>
   <section class="main" [ngClass]="{ hidden: todos.length === 0 }">
     <input id="toggle-all" class="toggle-all" type="checkbox">
