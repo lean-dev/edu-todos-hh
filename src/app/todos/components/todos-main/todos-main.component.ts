@@ -11,7 +11,10 @@ export class TodosMainComponent{
   todos!: Todo[];
 
   removeTodo(id: number) {
-    // Problem: who calls the backend??
-    this.todos = this.todos.filter(t => t.id !== id);
+    // Problem 1: who calls the backend??
+    const ix = this.todos.findIndex(t => t.id === id);
+    this.todos.splice(ix, 1);
+    // Bug: creates a new todos array in subtree
+    // this.todos = this.todos.filter(t => t.id !== id);
   }
 }
