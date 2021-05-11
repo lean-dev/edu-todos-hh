@@ -8,7 +8,9 @@ export enum VisibilityFilter {
   Completed
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AppState {
 
   todos: Todo[] = [];

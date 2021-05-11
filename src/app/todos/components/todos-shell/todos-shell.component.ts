@@ -8,16 +8,16 @@ import { AppState } from '../../services/app-state';
 })
 export class TodosShellComponent {
 
-  private nextId = 1;
-
-  author = 'Micha Alt';
+  author = 'Micha Alt'
   authorUrl = 'https://github.com/lean-ng';
 
-  todos: Todo[] = [];
+  todos: Todo[];
 
-  constructor(private appState: AppState) {}
+  constructor(private appState: AppState) {
+    this.todos = appState.todos; // Initially empty
+  }
 
   createTodo(title: string) {
-    this.todos.push({ id: this.nextId++, title, completed: false });
+    this.appState.createTodo(title); // Generates todo and a new(!) todos array
   }
 }
