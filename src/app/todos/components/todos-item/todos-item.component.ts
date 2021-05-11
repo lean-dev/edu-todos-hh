@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Todo } from '../../model/todo';
+import { AppState } from '../../services/app-state';
 
 @Component({
   selector: 'todos-item',
@@ -11,16 +12,13 @@ export class TodosItemComponent {
   @Input()
   todo!: Todo;
 
-  @Output()
-  remove = new EventEmitter<void>();
+  constructor(private appState: AppState) {}
 
   toggleCompletedState(): void {
-    // Problem: who calls the backend??
-    this.todo.completed = !this.todo.completed;
+    this.appState.toggleTodo(this.todo.id);
   }
 
   deleteTodo(): void {
-    // No chance to delete myself ...
-    this.remove.emit();
+    this.appState.removeTodo(this.todo.id);
   }
 }
