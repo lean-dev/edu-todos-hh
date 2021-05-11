@@ -37,7 +37,7 @@ export class LocalPersistenceService implements Persistence {
   }
 
   private _saveTodos(todos: Todo[]): void {
-    localStorage.todos = JSON.stringify(localStorage.todos);
+    localStorage.todos = JSON.stringify(todos);
   }
 
   private _nextId(): number {
