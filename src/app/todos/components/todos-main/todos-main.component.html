@@ -1,0 +1,9 @@
+<section class="main" [ngClass]="{ hidden: todos.length === 0 }">
+  <input id="toggle-all" class="toggle-all" type="checkbox">
+  <label for="toggle-all">Mark all as complete</label>
+  <ul class="todo-list">
+    <todos-item *ngFor="let t of todos" [todo]="t"
+      (remove)="removeTodo(t.id)"
+    ></todos-item>
+  </ul>
+</section>

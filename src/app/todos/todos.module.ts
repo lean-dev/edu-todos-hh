@@ -4,13 +4,15 @@ import { TodosShellComponent } from './components/todos-shell/todos-shell.compon
 import { TodosItemComponent } from './components/todos-item/todos-item.component';
 import { TodosInputComponent } from './components/todos-input/todos-input.component';
 import { TodosActionbarComponent } from './components/todos-actionbar/todos-actionbar.component';
+import { TodosMainComponent } from './components/todos-main/todos-main.component';
 
 @NgModule({
   declarations: [
     TodosShellComponent,
     TodosItemComponent,
     TodosInputComponent,
-    TodosActionbarComponent
+    TodosActionbarComponent,
+    TodosMainComponent
   ],
   imports: [
     CommonModule
