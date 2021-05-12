@@ -12,7 +12,10 @@ export class TodosInputComponent {
   create = new EventEmitter<string>();
 
   createTodo(): void {
-    this.create.emit(this.title);
+    const title = this.title.trim();
+    if (title) {
+      this.create.emit(title);
+    }
     this.title = '';
   }
 }

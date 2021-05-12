@@ -1,6 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Todo } from '../../model/todo';
 
 import { TodosItemComponent } from './todos-item.component';
+
+const todoMock: Todo = {
+  id: 42,
+  title: 'Unit Testing',
+  completed: false
+}
 
 describe('TodosItemComponent', () => {
   let component: TodosItemComponent;
@@ -16,6 +23,7 @@ describe('TodosItemComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TodosItemComponent);
     component = fixture.componentInstance;
+    component.todo = todoMock;
     fixture.detectChanges();
   });
 
