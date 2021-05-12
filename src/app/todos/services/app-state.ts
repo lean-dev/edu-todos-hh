@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
+import { BehaviorSubject, Observable, ReplaySubject, Subject } from "rxjs";
 import { Todo } from "../model/todo";
 import { LocalPersistenceService } from "./local-persistence.service";
+import { map } from 'rxjs/operators';
 
 export enum VisibilityFilter {
   All,
@@ -13,28 +15,39 @@ export enum VisibilityFilter {
 })
 export class AppState {
 
-  todos: Todo[] = [];
+  private todosSource = new BehaviorSubject<Todo[]>([]);
+  todos$: Observable<Todo[]> = this.todosSource.asObservable();
+
+  hasTodos$: Observable<boolean>;
+  activeCount$: Observable<number>;
+
   filter: VisibilityFilter = VisibilityFilter.All;
 
   constructor(private persistence: LocalPersistenceService) {
     persistence.getAll().then(todos => {
-      this.todos = todos;
+      this.todosSource.next(todos);
     });
+
+    this.hasTodos$ = this.todos$.pipe( map(todos => todos.length > 0));
+    this.activeCount$ = this.todos$.pipe( map(todos =>
+      todos.reduce((count, t) => t.completed ? count : count + 1, 0) ));
+
   }
 
   async createTodo(title: string) {
     const todo = await this.persistence.create(title);
-    this.todos = [ ...this.todos, todo];
+    this.todosSource.next( [ ...this.todosSource.value, todo] );
   }
 
   async toggleTodo(id: number) {
-    const currentState = (this.todos.find(t => t.id === id) as Todo).completed;
+    const todos = this.todosSource.value;
+    const currentState = (todos.find(t => t.id === id) as Todo).completed;
     const todo = await this.persistence.update(id, { completed: !currentState });
-    this.todos = this.todos.map(t => t.id === id ? todo : t);
+    this.todosSource.next(todos.map(t => t.id === id ? todo : t));
   }
 
   async removeTodo(id: number) {
     await this.persistence.remove(id);
-    this.todos = this.todos.filter(t => t.id !== id);
+    this.todosSource.next(this.todosSource.value.filter(t => t.id !== id));
   }
 }

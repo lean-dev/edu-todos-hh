@@ -1,7 +1,7 @@
-<section class="main" [ngClass]="{ hidden: todos.length === 0 }">
+<section class="main" [ngClass]="{ hidden: !(hasTodos$ | async) }">
   <input id="toggle-all" class="toggle-all" type="checkbox">
   <label for="toggle-all">Mark all as complete</label>
   <ul class="todo-list">
-    <todos-item *ngFor="let t of todos" [todo]="t"></todos-item>
+    <todos-item *ngFor="let t of todos$ | async" [todo]="t"></todos-item>
   </ul>
 </section>

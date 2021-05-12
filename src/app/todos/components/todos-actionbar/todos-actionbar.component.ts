@@ -1,5 +1,8 @@
 import { Component, Input } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Todo } from '../../model/todo';
+import { AppState } from '../../services/app-state';
 
 @Component({
   selector: 'todos-actionbar',
@@ -7,16 +10,14 @@ import { Todo } from '../../model/todo';
 })
 export class TodosActionbarComponent {
 
-  @Input()
-  todos!: Todo[];
+  public hasTodos$ = this.appState.hasTodos$;
+  public activeCount$ = this.appState.activeCount$;
+  public hasCompletedTodos$: Observable<boolean>;
 
-  // Bad practices: recalculating on every change detection run
-
-  get hasTodos(): boolean {
-    return this.todos.length > 0;
+  constructor(private appState: AppState) {
+    this.hasCompletedTodos$ = appState.todos$.pipe( map(
+      todos => todos.findIndex(t => t.completed) !== -1
+    ));
   }
 
-  get activeCount(): number {
-    return this.todos.reduce((count, t) => t.completed ? count : count + 1, 0);
-  }
 }

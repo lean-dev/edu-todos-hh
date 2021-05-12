@@ -1,5 +1,5 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { Todo } from '../../model/todo';
+import { Component } from '@angular/core';
+import { AppState } from '../../services/app-state';
 
 @Component({
   selector: 'todos-main',
@@ -7,6 +7,10 @@ import { Todo } from '../../model/todo';
 })
 export class TodosMainComponent {
 
-  @Input()
-  todos!: Todo[];
+  todos$ = this.appState.todos$;
+  hasTodos$ = this.appState.hasTodos$;
+
+  constructor(private appState: AppState) {}
+
+
 }
